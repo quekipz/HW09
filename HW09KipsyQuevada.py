@@ -8,10 +8,8 @@ Homework 09: Advanced Python Topics
 
 #*********************
 #IMPORTS
-import unittest
 from prettytable import PrettyTable
-import os
-import sys
+import sqlite3
 #*********************
 
 #*********************
@@ -227,11 +225,21 @@ class Repository:
 
 #PART 1:
 def main():
-    # unittest.main()
-    stevens = Repository("/Users/Class2018/Desktop/ssw810/GIT College Repository/HW09") # read files and generate prettytables
-    stevens.create_maj_pretty_tables()
-    stevens.create_stud_pretty_tables()
-    stevens.create_inst_pretty_tables()
+    DB_FILE = "/Users/Class2018/Desktop/ssw810/HW11.db"
+    instructor_list = list()
+    db = sqlite3.connect(DB_FILE)
+    query = """ select i.CWID, i.Name, i.Dept, g.Course, count(*) as student_count
+                    from grades g
+                join instructors i on g.Instructor_CWID = i.CWID
+                group by g.Course; """
+    for row in db.execute(query):
+        instructor_list.append(row)
+    instructor_summary = PrettyTable(field_names=["CWID", "Name", "Dept", "Course", "Students"])
+    for inst in instructor_list:
+        cwid, name, dept, course, students = inst
+        instructor_summary.add_row([cwid, name, dept, course, students])
+    print ("Instructor Summary")
+    print(instructor_summary)
 #*********************
 
-# main()
+main()

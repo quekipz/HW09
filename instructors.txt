@@ -1,6 +1,1 @@
-98765	Einstein, A	SFEN
-98764	Feynman, R	SFEN
-98763	Newton, I	SFEN
-98762	Hawking, S	SYEN
-98761	Edison, A	SYEN
-98760	Darwin, C	SYEN
+CWID  Name  Dept98765 Einstein, A SFEN98764 Feynman, R SFEN98763 Newton, I  SFEN98762 Hawking, S SYEN98761 Edison, A  SYEN98760 Darwin, C  SYEN

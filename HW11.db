@@ -1,0 +1,23 @@
+select CWID, name from students
+where CWID = '11461';
+
+select Major, count(*) as student_count
+from students group by Major;
+
+select grade, count(*) as frequency
+from grades group by grade
+order by frequency desc
+limit 1;
+
+select s.Name, s.CWID, s.Major, g.Course, g.Grade
+from students s
+  join grades g on s.CWID = g.Student_CWID;
+
+select s.Name, s.CWID, s.Major, g.Course, g.Grade
+from students s
+  join grades g on s.CWID = g.Student_CWID where g.Course = 'SSW 540';
+
+select i.CWID, i.Name, i.Dept, g.Course, count(*) as student_count
+from grades g
+  join instructors i on g.Instructor_CWID = i.CWID
+group by g.Course;
