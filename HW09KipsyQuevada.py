@@ -228,10 +228,10 @@ def main():
     DB_FILE = "/Users/Class2018/Desktop/ssw810/HW11.db"
     instructor_list = list()
     db = sqlite3.connect(DB_FILE)
-    query = """ select i.CWID, i.Name, i.Dept, g.Course, count(*) as student_count
-                    from grades g
-                join instructors i on g.Instructor_CWID = i.CWID
-                group by g.Course; """
+    query = """ select i.CWID, i.Name, i.Dept, g.Course, count(g.Course) as student_count
+                from instructors i
+                    left join grades g on i.CWID = g.Instructor_CWID
+                group by i.CWID, i.Name, i.Dept, g.Course; """
     for row in db.execute(query):
         instructor_list.append(row)
     instructor_summary = PrettyTable(field_names=["CWID", "Name", "Dept", "Course", "Students"])
