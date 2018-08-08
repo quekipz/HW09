@@ -17,7 +17,7 @@ select s.Name, s.CWID, s.Major, g.Course, g.Grade
 from students s
   join grades g on s.CWID = g.Student_CWID where g.Course = 'SSW 540';
 
-select i.CWID, i.Name, i.Dept, g.Course, count(*) as student_count
-from grades g
-  join instructors i on g.Instructor_CWID = i.CWID
-group by g.Course;
+select i.CWID, i.Name, i.Dept, g.Course, count(g.Course) as student_count
+from instructors i
+  left join grades g on i.CWID = g.Instructor_CWID
+group by i.CWID, i.Name, i.Dept, g.Course;
